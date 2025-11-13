@@ -101,6 +101,18 @@ def check_collision(pipes):
 
 	return False
 
+def move_background():
+	# BACKGROUND
+	if bg.x > -WIDTH:
+		bg.x -= 1
+	else:
+		bg.x = WIDTH
+
+	if bg2.x > -WIDTH:
+		bg2.x -= 1
+	else:
+		bg2.x = WIDTH
+
 run = True
 game_over = True
 menu = True
@@ -145,15 +157,7 @@ while run:
 	if not game_over and not menu:
 
 		# BACKGROUND
-		if bg.x > -WIDTH:
-			bg.x -= 1
-		else:
-			bg.x = WIDTH
-
-		if bg2.x > -WIDTH:
-			bg2.x -= 1
-		else:
-			bg2.x = WIDTH
+		move_background()
 
 		# PLAYER
 		rotated_player = rotate_player(player)
@@ -182,6 +186,9 @@ while run:
 	else:
 		title_text = m_font.render(TITLE, True, (255, 255, 255))
 		screen.blit(title_text, (WIDTH / 2 - title_text.get_width() / 2, 100))
+
+		# BACKGROUND
+		move_background()
 
 		play_text = m_font.render("Press SPACEBAR To Play", True, (255, 255, 255))
 		screen.blit(play_text, (WIDTH / 2 - play_text.get_width() / 2, 600))
