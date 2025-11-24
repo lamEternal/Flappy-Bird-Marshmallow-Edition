@@ -14,21 +14,36 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont('Consolas', 40)
 m_font = pygame.font.SysFont('Consolas', 25)
 
+# AUDIO
+
+hit = pygame.mixer.Sound("src/hit.wav")
+
 # BACKGROUND
 
-bg_img_0 = pygame.image.load("src/bg_3.png").convert()
+bg_img_0 = pygame.image.load("src/bg_1.jpg").convert()
 bg_img_0 = pygame.transform.scale(bg_img_0, (WIDTH, HEIGHT))
 
-bg_img_1 = pygame.image.load("src/bg_01.jpg").convert()
+bg_img_1 = pygame.image.load("src/bg_2.jpg").convert()
 bg_img_1 = pygame.transform.scale(bg_img_1, (WIDTH, HEIGHT))
 
-bg_img_2 = pygame.image.load("src/bg_02.png").convert()
+bg_img_2 = pygame.image.load("src/bg_3.jpg").convert()
 bg_img_2 = pygame.transform.scale(bg_img_2, (WIDTH, HEIGHT))
 
-bg_img_3 = pygame.image.load("src/bg_4.png").convert()
+bg_img_3 = pygame.image.load("src/bg_4.jpg").convert()
 bg_img_3 = pygame.transform.scale(bg_img_3, (WIDTH, HEIGHT))
 
-bg_list = [[bg_img_0, bg_img_0], [bg_img_2, bg_img_1], [bg_img_3, bg_img_3]]
+bg_img_4 = pygame.image.load("src/bg_5.jpg").convert()
+bg_img_4 = pygame.transform.scale(bg_img_4, (WIDTH, HEIGHT))
+
+bg_img_5 = pygame.image.load("src/bg_6.png").convert()
+bg_img_5 = pygame.transform.scale(bg_img_5, (WIDTH, HEIGHT))
+
+bg_list = [[bg_img_0, pygame.transform.flip(bg_img_0, True, False)], 
+		   [bg_img_1, pygame.transform.flip(bg_img_1, True, False)],
+		   [bg_img_2, pygame.transform.flip(bg_img_2, True, False)],
+		    [bg_img_3, pygame.transform.flip(bg_img_3, True, False)],
+			[bg_img_4, bg_img_5]
+			]
 
 background = random.choice(bg_list)
 bg = background[0].get_rect(center = (WIDTH / 2, HEIGHT / 2))
@@ -93,10 +108,12 @@ def move_pipes(pipes):
 def check_collision(pipes):
 
 	if player_rect.y < -10 or player_rect.y > HEIGHT:
+		hit.play()
 		return True
 
 	for pipe in pipes:
 		if pipe.colliderect(player_rect):
+			hit.play()
 			return True
 
 	return False
@@ -178,10 +195,10 @@ while run:
 		title_text = m_font.render(TITLE, True, (255, 255, 255))
 		screen.blit(title_text, (WIDTH / 2 - title_text.get_width() / 2, 100))
 
-		text_surface = font.render(f"Your Score : {score}", True, (200, 200, 200))
+		text_surface = font.render(f"Your Score : {score}", True, (200, 250, 200))
 		screen.blit(text_surface, (WIDTH / 2 - text_surface.get_width() / 2, 200))
 
-		replay_text = m_font.render("Press SPACEBAR To Play Again", True, (255, 255, 255))
+		replay_text = m_font.render("Press SPACEBAR To Play Again", True, (100, 100, 100))
 		screen.blit(replay_text, (WIDTH / 2 - replay_text.get_width() / 2, 600))
 	else:
 		title_text = m_font.render(TITLE, True, (255, 255, 255))
