@@ -109,11 +109,13 @@ def check_collision(pipes):
 
 	if player_rect.y < -10 or player_rect.y > HEIGHT:
 		hit.play()
+		pygame.time.delay(1200)
 		return True
 
 	for pipe in pipes:
 		if pipe.colliderect(player_rect):
 			hit.play()
+			pygame.time.delay(1200)
 			return True
 
 	return False
